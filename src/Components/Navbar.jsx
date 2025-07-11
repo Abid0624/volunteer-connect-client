@@ -68,12 +68,13 @@ const Navbar = () => {
             <li>
               <Link to="/">Home</Link>
             </li>
+
             <li>
               <details className="relative z-50">
                 <summary>My Profile</summary>
                 <ul className="p-2">
                   <li>
-                    <Link to="/">Add Volunteer</Link>
+                    <Link to="/add-volunteer">Add Volunteer</Link>
                   </li>
                   <li>
                     <Link to="/">Manage My Posts</Link>
@@ -82,7 +83,7 @@ const Navbar = () => {
               </details>
             </li>
             <li>
-              <Link to="/">All Volunteer</Link>
+              <Link to="/all-volunteer">All Volunteer Post</Link>
             </li>
           </ul>
         </div>

@@ -4,6 +4,8 @@ import ErrorPage from "../pages/ErrorPage";
 import Home from "../pages/Home";
 import Register from "../pages/Authentication/Register";
 import Login from "../pages/Authentication/Login";
+import AddVolunteerPost from "../pages/AddVolunteerPost";
+import AllVolunteerPost from "../pages/AllVolunteerPost";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +16,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/all-volunteer",
+        element: <AllVolunteerPost></AllVolunteerPost>,
+      },
+      {
+        path: "/add-volunteer",
+        element: <AddVolunteerPost></AddVolunteerPost>,
       },
       {
         path: "/register",
