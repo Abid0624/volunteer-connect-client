@@ -2,9 +2,15 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/vc logo.jpg";
 import { AuthContext } from "../providers/AuthProvider";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, loading } = useContext(AuthContext);
+
+  if (loading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
+
   return (
     <div>
       <div className="navbar bg-base-100 shadow-sm">
@@ -63,7 +69,7 @@ const Navbar = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <details>
+              <details className="relative z-50">
                 <summary>My Profile</summary>
                 <ul className="p-2">
                   <li>
@@ -81,16 +87,21 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          {user ? (
+          {user?.email ? (
             <div className="flex items-center gap-2">
               <div
                 className="tooltip tooltip-bottom"
-                data-tip={user?.displayName}
+                data-tip={user.displayName || "No name"}
               >
                 <img
-                  src={user?.photoURL}
+                  src={
+                    user?.photoURL
+                      ? user.photoURL
+                      : "https://www.w3schools.com/howto/img_avatar.png"
+                  }
                   alt="Profile"
-                  className="w-10 h-10 rounded-full border"
+                  className="w-10 h-10 rounded-full border object-cover"
+                  referrerPolicy="no-referrer"
                 />
               </div>
               <button onClick={logOut} className="btn btn-neutral">

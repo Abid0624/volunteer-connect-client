@@ -1,40 +1,32 @@
 import Lottie from "lottie-react";
 import React, { useContext } from "react";
-import registerLottieData from "../../assets/lottie/register.json";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import loginLottieData from "../../assets/lottie/login.json";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
 
-const Register = () => {
-  const { createUser, updateUserProfile, setUser, signInWithGoogle } =
-    useContext(AuthContext);
-
+const Login = () => {
+  const { signIn, signInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
-  const handleRegister = async (e) => {
+  const location = useLocation();
+  const from = location?.state || "/";
+
+  // Email Password Signin
+  const handleLogin = async (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
-    const name = form.name.value;
-    const photo = form.photo.value;
     const pass = form.password.value;
-
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-    if (!passwordRegex.test(pass)) {
-      toast.error(
-        "Password must be at least 6 characters long and include both uppercase and lowercase letters."
-      );
-      return;
+    console.log({ email, pass });
+    try {
+      //User Login
+      await signIn(email, pass);
+      toast.success("Signin Successful");
+      navigate(from, { replace: true });
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.message);
     }
-    createUser(email, pass)
-      .then(async (result) => {
-        await updateUserProfile(name, photo);
-        setUser({ ...result.user, displayName: name, photoURL: photo });
-        toast.success("Signup successful");
-        navigate("/");
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      });
   };
 
   // Google Signin
@@ -54,26 +46,12 @@ const Register = () => {
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content gap-8 flex-col lg:flex-row-reverse">
         <div className="text-center flex-1/2 lg:text-left w-96">
-          <Lottie animationData={registerLottieData}></Lottie>
+          <Lottie animationData={loginLottieData}></Lottie>
         </div>
         <div className="card flex-1/2 text-center bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <form onSubmit={handleRegister} className="card-body">
-            <h1 className="text-5xl my-3 font-bold">Register now!</h1>
+          <form onSubmit={handleLogin} className="card-body">
+            <h1 className="text-5xl my-3 font-bold">Login now!</h1>
             <fieldset className="fieldset">
-              <label className="label">Name</label>
-              <input
-                name="name"
-                type="name"
-                className="input"
-                placeholder="Name"
-              />
-              <label className="label">Photo URL</label>
-              <input
-                name="photo"
-                type="text"
-                className="input"
-                placeholder="Photo URL"
-              />
               <label className="label">Email</label>
               <input
                 name="email"
@@ -89,7 +67,7 @@ const Register = () => {
                 placeholder="Password"
               />
 
-              <button className="btn btn-neutral mt-4">Register</button>
+              <button className="btn btn-neutral mt-4">Login</button>
               <button
                 type="button"
                 onClick={handleGoogleSignIn}
@@ -99,9 +77,9 @@ const Register = () => {
               </button>
               <div className="text-base my-2">
                 <p>
-                  Already have an account?{" "}
+                  Doesn't have an account?{" "}
                   <span className="underline text-red-600 font-semibold">
-                    <Link to="/login">Login</Link>
+                    <Link to="/register">Register</Link>
                   </span>{" "}
                 </p>
               </div>
@@ -113,4 +91,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
