@@ -6,6 +6,7 @@ import Register from "../pages/Authentication/Register";
 import Login from "../pages/Authentication/Login";
 import AddVolunteerPost from "../pages/AddVolunteerPost";
 import AllVolunteerPost from "../pages/AllVolunteerPost";
+import ManageMyPosts from "../pages/ManageMyPosts";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/add-volunteer",
         element: <AddVolunteerPost></AddVolunteerPost>,
+      },
+      {
+        path: "/my-posts",
+        element: <ManageMyPosts></ManageMyPosts>,
       },
       {
         path: "/register",
