@@ -25,7 +25,7 @@ const HotJobs = () => {
         ))}
       </div>
       <Link to="/all-volunteer">
-        <button className="btn mt-2 btn-secondary">See All</button>
+        <button className="btn mt-4 btn-lg btn-accent">See All</button>
       </Link>
     </div>
   );

@@ -14,8 +14,6 @@ const AllVolunteerPost = () => {
     fetchAllPost();
   }, []);
 
-  console.log(posts);
-
   return (
     <div className="container px-6 py-10 mx-auto min-h-[calc(100vh-241px)] flex flex-col justify-between">
       <div className="flex flex-col md:flex-row justify-center items-center gap-5">
