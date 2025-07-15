@@ -2,14 +2,9 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/vc logo.jpg";
 import { AuthContext } from "../providers/AuthProvider";
-import LoadingSpinner from "./LoadingSpinner";
 
 const Navbar = () => {
-  const { user, logOut, loading } = useContext(AuthContext);
-
-  if (loading) {
-    return <LoadingSpinner></LoadingSpinner>;
-  }
+  const { user, logOut } = useContext(AuthContext);
 
   return (
     <div>

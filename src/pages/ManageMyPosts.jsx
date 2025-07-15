@@ -3,20 +3,66 @@ import { AuthContext } from "../providers/AuthProvider";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
+import toast from "react-hot-toast";
 
 const ManageMyPosts = () => {
   const { user } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const fetchAllPost = async () => {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/jobs/${user?.email}`
-      );
-      setPosts(data);
-    };
     fetchAllPost();
   }, [user]);
+
+  const fetchAllPost = async () => {
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_API_URL}/jobs/${user?.email}`
+    );
+    setPosts(data);
+  };
+
+  //   delete functionality
+  const handleDelete = async (id) => {
+    try {
+      const { data } = await axios.delete(
+        `${import.meta.env.VITE_API_URL}/job/${id}`
+      );
+      console.log(data);
+      toast.success("Data Deleted Successfully!!!");
+      fetchAllPost();
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
+    }
+  };
+
+  const modernDelete = (id) => {
+    toast((t) => (
+      <div className="flex gap-3 items-center">
+        <div>
+          <p>
+            Are you <b>sure?</b>
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <button
+            className="bg-red-400 text-white px-3 py-1 rounded-md"
+            onClick={() => {
+              toast.dismiss(t.id);
+              handleDelete(id);
+            }}
+          >
+            Yes
+          </button>
+          <button
+            className="bg-green-400 text-white px-3 py-1 rounded-md"
+            onClick={() => toast.dismiss(t.id)}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    ));
+  };
 
   return (
     <div className="w-11/12 px-4 mx-auto pt-12">

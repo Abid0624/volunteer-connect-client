@@ -7,6 +7,8 @@ import Login from "../pages/Authentication/Login";
 import AddVolunteerPost from "../pages/AddVolunteerPost";
 import AllVolunteerPost from "../pages/AllVolunteerPost";
 import ManageMyPosts from "../pages/ManageMyPosts";
+import PrivateRoute from "./PrivateRoute";
+import UpdateVolunteerPost from "../pages/UpdateVolunteerPost";
 
 const router = createBrowserRouter([
   {
@@ -24,11 +26,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/add-volunteer",
-        element: <AddVolunteerPost></AddVolunteerPost>,
+        element: (
+          <PrivateRoute>
+            <AddVolunteerPost></AddVolunteerPost>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/my-posts",
-        element: <ManageMyPosts></ManageMyPosts>,
+        element: (
+          <PrivateRoute>
+            <ManageMyPosts></ManageMyPosts>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/update/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateVolunteerPost></UpdateVolunteerPost>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/register",
