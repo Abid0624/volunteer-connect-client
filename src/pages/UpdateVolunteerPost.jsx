@@ -24,8 +24,6 @@ const UpdateVolunteerPost = () => {
     setStartDate(new Date(data.deadline));
   };
 
-  console.log(post);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
