@@ -1,7 +1,7 @@
 import axios from "axios";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const PostDetails = () => {
   const [post, setPost] = useState([]);
@@ -49,7 +49,7 @@ const PostDetails = () => {
             <span className="font-semibold">Volunteers Needed:</span>{" "}
             {post?.noOfVolunteer}
           </p>
-          <p className="sm:col-span-2 flex gap-4">
+          <div className="sm:col-span-2 flex gap-4">
             <div className="font-semibold">
               Organizer Name:{" "}
               <span className=" text-gray-800 font-normal text-base">
@@ -62,7 +62,7 @@ const PostDetails = () => {
                 {post?.host?.email}
               </span>
             </div>
-          </p>
+          </div>
         </div>
 
         <div className="mt-6 text-gray-700 text-sm sm:text-base">
@@ -71,9 +71,11 @@ const PostDetails = () => {
         </div>
 
         <div className="mt-8 text-center sm:text-left">
-          <button className="px-6 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition">
-            Be a Volunteer
-          </button>
+          <Link to={`/job-apply/${id}`}>
+            <button className="px-6 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition">
+              Be a Volunteer
+            </button>
+          </Link>
         </div>
       </div>
     </div>

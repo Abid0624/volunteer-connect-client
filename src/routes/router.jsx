@@ -10,6 +10,7 @@ import ManageMyPosts from "../pages/ManageMyPosts";
 import PrivateRoute from "./PrivateRoute";
 import UpdateVolunteerPost from "../pages/UpdateVolunteerPost";
 import PostDetails from "../pages/PostDetails";
+import ApplyForVolunteer from "../pages/ApplyForVolunteer";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <PostDetails></PostDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/job-apply/:id",
+        element: (
+          <PrivateRoute>
+            <ApplyForVolunteer></ApplyForVolunteer>
           </PrivateRoute>
         ),
       },

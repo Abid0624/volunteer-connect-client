@@ -9,7 +9,8 @@ const Login = () => {
   const { signIn, signInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location?.state || "/";
+  const from = location.state?.from?.pathname || "/";
+  console.log(from);
 
   // Email Password Signin
   const handleLogin = async (e) => {
