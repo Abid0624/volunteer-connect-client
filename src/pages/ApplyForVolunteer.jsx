@@ -32,7 +32,7 @@ const ApplyForVolunteer = () => {
       volunteerName: user?.displayName,
       volunteerEmail: user?.email,
       suggestion,
-      status: "requested",
+      status: "Requested",
       postId: id,
       title: post.title,
       thumbnail: post.thumbnail,
@@ -56,11 +56,11 @@ const ApplyForVolunteer = () => {
       );
 
       toast.success("Your Request Sent Successfully!!!");
-      //   navigate("/my-posts");
+      navigate("/my-posts");
       console.log(data);
     } catch (err) {
       console.log(err);
-      toast.error(err.message);
+      toast.error(err?.response?.data);
     }
   };
 

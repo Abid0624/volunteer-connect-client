@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
-import MyRequest from "../Components/MyRequest";
 
-const ManageMyPosts = () => {
+const MyRequest = () => {
   const { user } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
 
@@ -16,7 +14,7 @@ const ManageMyPosts = () => {
 
   const fetchAllPost = async () => {
     const { data } = await axios.get(
-      `${import.meta.env.VITE_API_URL}/jobs/${user?.email}`
+      `${import.meta.env.VITE_API_URL}/applications/${user?.email}`
     );
     setPosts(data);
   };
@@ -24,11 +22,9 @@ const ManageMyPosts = () => {
   //   delete functionality
   const handleDelete = async (id) => {
     try {
-      const { data } = await axios.delete(
-        `${import.meta.env.VITE_API_URL}/job/${id}`
-      );
+      await axios.delete(`${import.meta.env.VITE_API_URL}/application/${id}`);
 
-      toast.success("Data Deleted Successfully!!!");
+      toast.success("Your Request Deleted Successfully!!!");
       fetchAllPost();
     } catch (err) {
       console.log(err);
@@ -66,16 +62,15 @@ const ManageMyPosts = () => {
   };
 
   return (
-    <div className="w-11/12 px-4 mx-auto pt-12">
-      {/* My volunteer need posts */}
+    <div>
       <section className="my-4">
         <div className="flex items-center gap-x-3">
           <h2 className="text-lg font-medium text-gray-800 ">
-            My Volunteer Need Posts
+            My Volunteer Request Posts
           </h2>
 
           <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ">
-            {posts.length} Post
+            {posts.length} Request
           </span>
         </div>
 
@@ -106,9 +101,9 @@ const ManageMyPosts = () => {
                         scope="col"
                         className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500"
                       >
-                        <button className="flex items-center gap-x-2">
-                          <span>Volunteer Needed</span>
-                        </button>
+                        <div className="flex items-center gap-x-2 justify-center">
+                          <span>Location</span>
+                        </div>
                       </th>
 
                       <th
@@ -121,11 +116,11 @@ const ManageMyPosts = () => {
                         scope="col"
                         className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500"
                       >
-                        Description
+                        Status
                       </th>
 
                       <th className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                        Edit
+                        Delete
                       </th>
                     </tr>
                   </thead>
@@ -142,27 +137,36 @@ const ManageMyPosts = () => {
                         </td>
 
                         <td className="px-4 text-center py-4 text-sm text-gray-500  whitespace-nowrap">
-                          {post.noOfVolunteer}
+                          {post.location}
                         </td>
                         <td className="px-4 py-4 text-sm whitespace-nowrap">
                           <div className="flex items-center gap-x-2">
                             <p
                               className={`px-3 py-1 text-xs rounded-full
-    ${post.category === "Social Service" && "text-blue-500 bg-blue-100/60"}
-    ${post.category === "Animal Welfare" && "text-green-500 bg-green-100/60"}
-    ${post.category === "Healthcare" && "text-red-500 bg-red-100/60"}
-    ${post.category === "Education" && "text-yellow-500 bg-yellow-100/60"}
-  `}
+            ${
+              post.category === "Social Service" &&
+              "text-blue-500 bg-blue-100/60"
+            }
+            ${
+              post.category === "Animal Welfare" &&
+              "text-green-500 bg-green-100/60"
+            }
+            ${post.category === "Healthcare" && "text-red-500 bg-red-100/60"}
+            ${
+              post.category === "Education" &&
+              "text-yellow-500 bg-yellow-100/60"
+            }
+          `}
                             >
                               {post.category}
                             </p>
                           </div>
                         </td>
                         <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
-                          {post.description.substring(0, 15)}...
+                          {post.status}
                         </td>
                         <td className="px-4 py-4 text-sm whitespace-nowrap">
-                          <div className="flex items-center gap-x-6">
+                          <div className="">
                             <button
                               onClick={() => modernDelete(post._id)}
                               className="text-gray-500 transition-colors duration-200   hover:text-red-500 focus:outline-none"
@@ -182,26 +186,6 @@ const ManageMyPosts = () => {
                                 />
                               </svg>
                             </button>
-
-                            <Link
-                              to={`/update/${post._id}`}
-                              className="text-gray-500 transition-colors duration-200   hover:text-yellow-500 focus:outline-none"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="w-5 h-5"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                                />
-                              </svg>
-                            </Link>
                           </div>
                         </td>
                       </tr>
@@ -213,11 +197,8 @@ const ManageMyPosts = () => {
           </div>
         </div>
       </section>
-
-      {/* My Volunteer Request Post */}
-      <MyRequest></MyRequest>
     </div>
   );
 };
 
-export default ManageMyPosts;
+export default MyRequest;

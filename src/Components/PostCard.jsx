@@ -2,15 +2,8 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 
 const PostCard = ({ post }) => {
-  const {
-    _id,
-    title,
-    category,
-    deadline,
-    location,
-    volunteersNeeded,
-    thumbnail,
-  } = post;
+  const { _id, title, category, deadline, location, noOfVolunteer, thumbnail } =
+    post;
 
   return (
     <div className="w-full max-w-sm px-4 py-3 bg-white rounded-md shadow-md hover:scale-[1.05] transition-all flex flex-col">
@@ -34,7 +27,7 @@ const PostCard = ({ post }) => {
           <h1 className="text-lg font-semibold text-gray-800">{title}</h1>
           <p className="mt-2 text-sm text-gray-600">Location: {location}</p>
           <p className="text-sm text-gray-600">
-            Volunteers Needed: {volunteersNeeded}
+            Volunteers Needed: {noOfVolunteer}
           </p>
         </div>
 
