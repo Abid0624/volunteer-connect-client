@@ -10,7 +10,6 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  console.log(from);
 
   // Email Password Signin
   const handleLogin = async (e) => {
