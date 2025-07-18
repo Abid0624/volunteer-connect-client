@@ -8,11 +8,13 @@ const AllVolunteerPost = () => {
 
   useEffect(() => {
     const fetchAllPost = async () => {
-      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/jobs`);
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/all-jobs?search=${search}`
+      );
       setPosts(data);
     };
     fetchAllPost();
-  }, []);
+  }, [search]);
 
   return (
     <div className="container px-6 py-10 mx-auto min-h-[calc(100vh-241px)] flex flex-col justify-between">
