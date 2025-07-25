@@ -8,14 +8,15 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 const MyRequest = () => {
   const { user, theme } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
-  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
     fetchAllPost();
   }, [user]);
 
   const fetchAllPost = async () => {
-    const { data } = await axiosSecure.get(`/applications/${user?.email}`);
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_API_URL}/applications/${user?.email}`
+    );
     setPosts(data);
   };
 
