@@ -5,7 +5,7 @@ import logo from "../assets/vc logo.jpg";
 import { FaSun, FaMoon } from "react-icons/fa"; // 🌞 and 🌜 icons
 
 const Navbar = () => {
-  const { user, logout, theme, toggleTheme } = useContext(AuthContext);
+  const { user, logOut, theme, toggleTheme } = useContext(AuthContext);
 
   return (
     <div>
@@ -108,7 +108,7 @@ const Navbar = () => {
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <button onClick={logout} className="btn btn-neutral">
+              <button onClick={logOut} className="btn btn-neutral">
                 Logout
               </button>
             </div>

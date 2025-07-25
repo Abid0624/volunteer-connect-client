@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginLottieData from "../../assets/lottie/login.json";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const { signIn, signInWithGoogle } = useContext(AuthContext);
@@ -44,6 +45,9 @@ const Login = () => {
 
   return (
     <div className="hero bg-base-200 min-h-screen">
+      <Helmet>
+        <title>Volunteer Connect | Login</title>
+      </Helmet>
       <div className="hero-content gap-8 flex-col lg:flex-row-reverse">
         <div className="text-center flex-1/2 lg:text-left w-96">
           <Lottie animationData={loginLottieData}></Lottie>

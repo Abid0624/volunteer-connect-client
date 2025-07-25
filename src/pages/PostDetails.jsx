@@ -1,6 +1,7 @@
 import axios from "axios";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 const PostDetails = () => {
@@ -21,6 +22,9 @@ const PostDetails = () => {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+      <Helmet>
+        <title>Volunteer Connect | Post Details{id}</title>
+      </Helmet>
       <div className="bg-white shadow-md rounded-md p-4 sm:p-6">
         <img
           src={post?.thumbnail}

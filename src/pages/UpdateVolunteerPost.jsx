@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const UpdateVolunteerPost = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -67,6 +68,9 @@ const UpdateVolunteerPost = () => {
 
   return (
     <div className="flex justify-center items-center min-h-[calc(100vh-306px)] my-12">
+      <Helmet>
+        <title>Volunteer Connect | Update{id}</title>
+      </Helmet>
       <section className=" p-2 md:p-6 mx-auto bg-white rounded-md shadow-md ">
         <h2 className="text-lg font-semibold text-gray-700 capitalize ">
           Update Post

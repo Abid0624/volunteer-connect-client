@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const ApplyForVolunteer = () => {
   const { user } = useContext(AuthContext);
@@ -66,6 +67,9 @@ const ApplyForVolunteer = () => {
 
   return (
     <div className="flex justify-center items-center min-h-[calc(100vh-306px)] my-12">
+      <Helmet>
+        <title>Volunteer Connect | Apply{id}</title>
+      </Helmet>
       <section className="p-2 md:p-6 mx-auto bg-white rounded-md shadow-md w-full max-w-4xl">
         <h2 className="text-lg font-semibold text-gray-700 capitalize">
           Be a Volunteer
