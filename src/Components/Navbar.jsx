@@ -1,15 +1,17 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/vc logo.jpg";
 import { AuthContext } from "../providers/AuthProvider";
+import logo from "../assets/vc logo.jpg";
+import { FaSun, FaMoon } from "react-icons/fa"; // 🌞 and 🌜 icons
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logout, theme, toggleTheme } = useContext(AuthContext);
 
   return (
     <div>
       <div className="navbar bg-base-100 shadow-sm">
         <div className="navbar-start gap-4 lg:gap-0">
+          {/* Mobile Menu */}
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
@@ -38,32 +40,34 @@ const Navbar = () => {
                 <Link to="/">My Profile</Link>
                 <ul className="p-2">
                   <li>
-                    <Link to="/">Add Volunteer</Link>
+                    <Link to="/add-volunteer">Add Volunteer</Link>
                   </li>
                   <li>
-                    <Link to="/">Manage My Posts</Link>
+                    <Link to="/my-posts">Manage My Posts</Link>
                   </li>
                 </ul>
               </li>
               <li>
-                <Link to="/">All Volunteer</Link>
+                <Link to="/all-volunteer">All Volunteer</Link>
               </li>
             </ul>
           </div>
+
+          {/* Logo */}
           <Link to="/">
             <div className="flex justify-center items-center gap-1">
               <h3 className="font-bold text-2xl">Volunteer Connect</h3>
-              <img className="w-auto h-10 rounded-full" src={logo} alt="" />
+              <img className="w-auto h-10 rounded-full" src={logo} alt="logo" />
             </div>
           </Link>
         </div>
 
+        {/* Desktop Menu */}
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
               <Link to="/">Home</Link>
             </li>
-
             <li>
               <details className="relative z-50">
                 <summary>My Profile</summary>
@@ -82,7 +86,15 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <div className="navbar-end">
+
+        {/* Right Section */}
+        <div className="navbar-end flex items-center gap-1 md:gap-3">
+          {/* Theme Toggle Icon */}
+          <button onClick={toggleTheme} className="text-sm md:text-xl">
+            {theme === "light" ? <FaMoon /> : <FaSun />}
+          </button>
+
+          {/* Auth Section */}
           {user?.email ? (
             <div className="flex items-center gap-2">
               <div
@@ -90,25 +102,19 @@ const Navbar = () => {
                 data-tip={user.displayName || "No name"}
               >
                 <img
-                  src={
-                    user?.photoURL
-                      ? user.photoURL
-                      : "https://www.w3schools.com/howto/img_avatar.png"
-                  }
+                  src={user?.photoURL}
                   alt="Profile"
                   className="w-10 h-10 rounded-full border object-cover"
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <button onClick={logOut} className="btn btn-neutral">
+              <button onClick={logout} className="btn btn-neutral">
                 Logout
               </button>
             </div>
           ) : (
             <Link to="/login">
-              <button className="btn bg-gray-200 block text-center">
-                Login
-              </button>
+              <button className="btn bg-gray-200">Login</button>
             </Link>
           )}
         </div>

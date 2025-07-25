@@ -1,4 +1,6 @@
 import { motion } from "motion/react";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const stats = [
   { id: 1, label: "Volunteers", value: "5,200+" },
@@ -8,10 +10,13 @@ const stats = [
 ];
 
 const ImpactStats = () => {
+  const { theme } = useContext(AuthContext);
   return (
     <section className="my-6 bg-white py-12 px-4 lg:px-16 rounded-xl shadow-md container mx-auto">
       <motion.h2
-        className="text-3xl text-center font-bold mb-10"
+        className={`text-3xl text-center ${
+          theme === "dark" ? "text-gray-500" : "text-gray-700"
+        } font-bold mb-10`}
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}

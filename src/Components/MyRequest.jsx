@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const MyRequest = () => {
-  const { user } = useContext(AuthContext);
+  const { user, theme } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const axiosSecure = useAxiosSecure();
 
@@ -65,8 +65,12 @@ const MyRequest = () => {
     <div>
       <section className="my-4">
         <div className="flex items-center gap-x-3">
-          <h2 className="text-lg font-medium text-gray-800 ">
-            My Volunteer Request Posts
+          <h2
+            className={`text-lg font-medium ${
+              theme === "dark" ? "text-gray-300" : "text-gray-700"
+            }`}
+          >
+            My Volunteer Need Posts
           </h2>
 
           <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ">

@@ -1,7 +1,10 @@
 import { motion, easeInOut } from "motion/react";
 import volunteerImage from "../assets/images/volunteer.jpg";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const WhyVolunteer = () => {
+  const { theme } = useContext(AuthContext);
   return (
     <section className="my-10 container mx-auto bg-base-200 py-10 px-6 rounded-xl">
       <div className="flex flex-col-reverse lg:flex-row items-center gap-10">
@@ -14,7 +17,7 @@ const WhyVolunteer = () => {
               ease: easeInOut,
               repeat: Infinity,
             }}
-            className="text-3xl font-bold text-black"
+            className="text-3xl font-bold text-cyan-400"
           >
             Why Become a{" "}
             <motion.span
@@ -26,13 +29,13 @@ const WhyVolunteer = () => {
             ?
           </motion.h2>
 
-          <p className="text-gray-700">
+          <p className={theme === "dark" ? "text-gray-300" : "text-gray-700"}>
             Volunteering is more than just helping others. It builds confidence,
             creates friendships, and gives you a sense of purpose. Whether
             you're giving your time to support education, healthcare, or the
             environment—your contribution matters.
           </p>
-          <p className="text-gray-700">
+          <p className={theme === "dark" ? "text-gray-300" : "text-gray-700"}>
             Join a growing community of changemakers. Make a difference in your
             community today!
           </p>
