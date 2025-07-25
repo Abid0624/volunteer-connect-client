@@ -5,11 +5,13 @@ import { AuthContext } from "../providers/AuthProvider";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const AddVolunteerPost = () => {
   const [startDate, setStartDate] = useState(new Date());
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,10 +42,7 @@ const AddVolunteerPost = () => {
 
     try {
       // make a post req to save data in db
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/add-job`,
-        formData
-      );
+      const { data } = await axiosSecure.post(`/add-job`, formData);
       form.reset();
       toast.success("Data Added Successfully!!!");
       navigate("/my-posts");

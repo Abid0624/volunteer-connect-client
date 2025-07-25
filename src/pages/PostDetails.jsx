@@ -69,13 +69,18 @@ const PostDetails = () => {
           <span className="font-semibold">Description:</span>
           <p className="mt-1">{post?.description}</p>
         </div>
-
         <div className="mt-8 text-center sm:text-left">
-          <Link to={`/job-apply/${id}`}>
-            <button className="px-6 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition">
-              Be a Volunteer
-            </button>
-          </Link>
+          {post?.noOfVolunteer > 0 ? (
+            <Link to={`/job-apply/${id}`}>
+              <button className="px-6 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition">
+                Be a Volunteer
+              </button>
+            </Link>
+          ) : (
+            <p className="text-red-600 font-semibold">
+              No volunteers needed for this post at the moment.
+            </p>
+          )}
         </div>
       </div>
     </div>

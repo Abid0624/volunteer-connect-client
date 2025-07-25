@@ -4,12 +4,14 @@ import DatePicker from "react-datepicker";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const UpdateVolunteerPost = () => {
   const [startDate, setStartDate] = useState(new Date());
   const { user } = useContext(AuthContext);
   const [post, setPost] = useState([]);
   const { id } = useParams();
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -53,10 +55,7 @@ const UpdateVolunteerPost = () => {
 
     try {
       // make a post req to save data in db
-      const { data } = await axios.put(
-        `${import.meta.env.VITE_API_URL}/update-job/${id}`,
-        formData
-      );
+      const { data } = await axiosSecure.put(`/update-job/${id}`, formData);
       form.reset();
       toast.success("Data Updated Successfully!!!");
       navigate("/my-posts");
